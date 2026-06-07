@@ -46,7 +46,7 @@ jobs:
 
             # ── Construir nome da imagem (usuário/repo) ────────────────────
             DOCKER_USER="$(echo "$DOCKERHUB_USERNAME" | tr '[:upper:]' '[:lower:]')"
-            REPO="delbicosbackend"
+            REPO="atividade-final"
             IMAGE="${DOCKER_USER}/${REPO}:latest"
 
             # ── Parar container antigo ─────────────────────────────────────
