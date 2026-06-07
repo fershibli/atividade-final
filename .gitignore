@@ -140,5 +140,4 @@ dist
 docker-pat
 atividade-final.pem
 pnpm-lock.yaml
-package-lock.json
 .env
