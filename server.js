@@ -59,6 +59,10 @@ const swaggerDocument = {
       url: `http://localhost:${process.env.PORT || 3000}`,
       description: "Servidor de desenvolvimento",
     },
+    {
+      url: `https://${process.env.EC2_HOST || "ec2-instance.amazonaws.com"}:${process.env.PORT || 3000}`,
+      description: "Servidor de produção (EC2)",
+    },
   ],
   paths: {
     "/pedidos": {
