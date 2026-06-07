@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "ts-node-dev --respawn --transpile-only ./server.js"
+    "dev": "ts-node-dev --respawn --transpile-only ./server.js",
+    "build": "tsc"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.939.0",
