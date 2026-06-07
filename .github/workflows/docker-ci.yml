@@ -1,11 +1,8 @@
 name: 01 - Buildar e publicar imagem Docker
 
-# Gatilho: Acionado QUANDO um Pull Request é FECHADO.
+# Gatilho: manual (workflow_dispatch) para permitir execução sob demanda
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - main # Apenas PRs direcionados à 'main'
+  workflow_dispatch:
 
 jobs:
   build-and-push:
