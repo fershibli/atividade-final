@@ -4,8 +4,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "ts-node-dev --respawn --transpile-only ./server.js",
-    "build": "tsc"
+    "dev": "nodemon index.js",
+    "build": "esbuild src/index.js --bundle --platform=node --outfile=dist/index.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.939.0",
@@ -17,10 +17,7 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "@types/express": "^4.17.17",
-    "@types/multer": "^1.4.7",
-    "@types/node": "^20.11.0",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.3.3"
+    "esbuild": "^0.17.19",
+    "nodemon": "^2.0.22"
   }
 }
