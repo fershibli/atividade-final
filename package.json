@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon index.js",
-    "build": "esbuild src/index.js --bundle --platform=node --outfile=dist/index.js"
+    "build": "esbuild server.js --bundle --platform=node --outfile=dist/server.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.939.0",
