@@ -50,8 +50,8 @@ jobs:
             IMAGE="${DOCKER_USER}/${REPO}:latest"
 
             # ── Parar container antigo ─────────────────────────────────────
-            sudo docker stop delbicos-backend 2>/dev/null || true
-            sudo docker rm   delbicos-backend 2>/dev/null || true
+            sudo docker stop atividade-final 2>/dev/null || true
+            sudo docker rm   atividade-final 2>/dev/null || true
 
             # ── Limpeza para evitar "no space left on device" ──────────────
             sudo docker system prune -af --volumes || true
@@ -67,7 +67,7 @@ jobs:
 
             # ── Subir novo container ──────────────────────────────────────
             sudo docker run -d \
-              --name delbicos-backend \
+              --name atividade-final \
               --restart on-failure:3 \
               -v /home/$EC2_USER/.env:/app/.env:ro \
               -p 3000:3000 \
