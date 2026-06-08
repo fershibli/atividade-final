@@ -141,3 +141,4 @@ docker-pat
 atividade-final.pem
 pnpm-lock.yaml
 .env
+.DS_Store
