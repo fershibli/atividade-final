@@ -738,6 +738,42 @@ app.post(
   }
 );
 
+app.get('/health', async (req, res) => {
+  try {
+
+    await docClient.send(
+      new ScanCommand({
+        TableName: TABLE_NAME,
+        Limit: 1
+      })
+    );
+
+    await s3Client.send(
+      new ListObjectsV2Command({
+        Bucket: BUCKET_NAME,
+        MaxKeys: 1
+      })
+    );
+
+    res.json({
+      api: 'UP',
+      dynamodb: 'UP',
+      s3: 'UP',
+      table: TABLE_NAME,
+      bucket: BUCKET_NAME,
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      api: 'DOWN',
+      error: error.message
+    });
+
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
