@@ -670,6 +670,74 @@ app.get("/pedidos/:idPedido/arquivos", async (req, res) => {
   }
 });
 
+app.post(
+  "/pedidos/:idPedido/gerar-nota",
+  async (req, res) => {
+    try {
+
+      const { idPedido } = req.params;
+
+      const pedidoResult =
+        await docClient.send(
+          new GetCommand({
+            TableName: TABLE_NAME,
+            Key: { idPedido }
+          })
+        );
+
+      if (!pedidoResult.Item) {
+        return res.status(404).json({
+          error: "Pedido não encontrado"
+        });
+      }
+
+      const pedido =
+        pedidoResult.Item;
+
+      const pdfBuffer =
+        await gerarNotaFiscal(
+          pedido
+        );
+
+      const fileKey =
+        `notas/${idPedido}/nota-fiscal.pdf`;
+
+      await s3Client.send(
+        new PutObjectCommand({
+          Bucket: BUCKET_NAME,
+          Key: fileKey,
+          Body: pdfBuffer,
+          ContentType:
+            "application/pdf"
+        })
+      );
+
+      await docClient.send(
+        new UpdateCommand({
+          TableName: TABLE_NAME,
+          Key: { idPedido },
+          UpdateExpression:
+            "SET referenciaNota = :r",
+          ExpressionAttributeValues: {
+            ":r": fileKey
+          }
+        })
+      );
+
+      return res.json({
+        message:
+          "Nota fiscal gerada",
+        arquivo: fileKey
+      });
+
+    } catch (error) {
+      res.status(500).json({
+        error: error.message
+      });
+    }
+  }
+);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
